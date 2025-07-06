@@ -1,10 +1,6 @@
 package com.fatih.libraryapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "books")
@@ -21,6 +17,19 @@ public class Book {
     private String category;
 
     private Integer publishedYear;
+
+    // Boş constructor
+    public Book() {
+    }
+
+    // Dolu constructor
+    public Book(Long id, String title, String author, String category, Integer publishedYear) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.publishedYear = publishedYear;
+    }
 
     // Getter ve Setter'lar
 

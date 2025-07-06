@@ -4,12 +4,12 @@ import com.fatih.libraryapi.dto.BookDTO;
 import com.fatih.libraryapi.model.Book;
 import com.fatih.libraryapi.service.BookService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -27,10 +27,14 @@ public class BookController {
         return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
     }
 
-    // GET - Tüm kitapları getir
+    // GET - Sayfalı ve filtreli kitapları getir
     @GetMapping
-    public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+    public Page<Book> getBooks(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(required = false) String title
+    ) {
+        return bookService.getBooks(page, size, title);
     }
 
     // PUT - Kitap güncelle
